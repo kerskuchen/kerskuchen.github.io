@@ -1,25 +1,52 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
+
+    <title>i amn just... a litle creacher</title>
+    <link rel="shortcut icon" href="images/logo.png">
+
     <meta name="author" content="Jakob Schwab">
     <meta name="description" content="testing the internets">
     <meta property="og:image" content="https://kerskuchen.github.io/images/image.png">
     <meta property="og:description" content="testing the internets">
     <meta property="og:title" content="i amn just... a litle creacher">
-    <link rel="shortcut icon" href="images/image.png">
 
     <!-- <meta http-equiv="refresh" content="10" /> -->
-    <!-- NOTE: We need to put the @font-face here because our style.css cannot access ../fonts/* -->
+
+    <!-- inline stylesheet example -->
     <style type="text/css" media="screen, print">
+        /* NOTE: We need to put the @font-face here because our styles/style.css cannot access '../fonts/*' */
+        /*       We could also put it in 'syles/style.css' and move our font into 'styles' dir */
         @font-face {
             font-family: "Freckle Face";
             src: url("fonts/FreckleFace-Regular.ttf") format("truetype");
         }
     </style>
+    <!-- external stylesheet example -->
     <link href="styles/style.css" rel="stylesheet">
-    <title>i amn just... a litle creacher</title>
+
+    <!-- external script example -->
+    <!-- <script type="text/javascript" src="scripts/main.js" defer></script>
+    <script type="text/javascript" src="scripts/pixi.min.js" defer></script> -->
+    <!-- inline script example (discouraged)
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            function createParagraph() {
+                let para = document.createElement('p');
+                para.textContent = 'clickyyy!!';
+                document.body.appendChild(para);
+            }
+
+            const buttons = document.querySelectorAll('button');
+            for (const button of buttons) {
+                button.addEventListener('click', createParagraph);
+            }
+
+        });
+    </script> -->
+
 </head>
 
 <body>
@@ -27,13 +54,6 @@
     <h1>yesyes</h1>
     <button>Change user</button>
     <h1>i amn just... a litle creacher</h1>
-    <ul>
-        <li>lala</li>
-        <li>mala</li>
-        <li>kala</li>
-        <li>luppi</li>
-        <li>schluppi</li>
-    </ul>
     <ol>
         <li>lala</li>
         <li>mala</li>
@@ -41,9 +61,17 @@
         <li>luppi</li>
         <li>schluppi</li>
     </ol>
+    Add new elements by clicking on the list:
+    <ul>
+    </ul>
 
     <a href="https://duckduckgo.com">DUCK</a>
 
+    <p> My cat is <strong>very</strong> funny </p>
+    <p class="editor_note"> My cat is <strong>very</strong> funny </p>
+    My cat is <em>very</em> funny
+
+    <p>Japanese example: <span lang="ja">ご飯が熱い。</span></p>
     <p>
         Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
         dolore
@@ -65,22 +93,50 @@
         gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
         My cat is <strong>very</strong> grumpy
     </p>
-    <p class="editor_note">
-        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
-        dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet
-        clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet,
-        consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed
-        diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
-        takimata sanctus est Lorem ipsum dolor sit amet. My cat is <strong>very</strong> grumpy
-    </p>
-    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore
-    magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd
-    gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing
-    elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero
-    eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum
-    dolor sit amet. My cat is very grumpy
 
-    <script type="text/javascript" src="scripts/main.js"></script>
+    <div class="result_paragraphs">
+        <p class="guesses"></p>
+        <p class="last_result"></p>
+        <p class="low_or_hight"></p>
+    </div>
+    <label for="guess_field">Enter a guess: </label><input type="text" id="guess_field" class="guess_field">
+    <input type="submit" value="Submit guess" class="guess_submit">
+
+    <script src="scripts/pixi.min.js"></script>
+    <script>
+        let type = "WebGL"
+        if (!PIXI.utils.isWebGLSupported()) {
+            type = "canvas"
+        }
+
+
+
+        const app = new PIXI.Application({ backgroundColor: 0x1099bb });
+        document.body.appendChild(app.view);
+
+        // create a new Sprite from an image path
+        const bunny = PIXI.Sprite.from('images/bunny.png');
+
+        // center the sprite's anchor point
+        bunny.anchor.set(0.5);
+
+        // move the sprite to the center of the screen
+        bunny.x = app.screen.width / 2;
+        bunny.y = app.screen.height / 2;
+
+        app.stage.addChild(bunny);
+
+        // Listen for animate update
+        app.ticker.add((delta) => {
+            // just for fun, let's rotate mr rabbit a little
+            // delta is 1 if running at 100% performance
+            // creates frame-independent transformation
+            bunny.rotation += 0.1 * delta;
+            PIXI.utils.sayHello(type)
+        });
+
+
+    </script>
 </body>
 
 </html>
